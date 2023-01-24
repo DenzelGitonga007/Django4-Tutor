@@ -1,5 +1,8 @@
 from django.db import models
+# Import timezone
 from django.utils import timezone
+# Import User model
+from django.contrib.auth.models import User
 
 # Create your models here.
 # Post model
@@ -11,6 +14,9 @@ class Post(models.Model):
 
     title = models.CharField(max_length=250) # title of the post, VARCHAR
     slug = models.SlugField(max_length=250) # short lable, VARCHAR
+    # Creating the relationship
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+    # Continuation
     body = models.TextField() # body, TEXT
     # Datetime fields.
     publish = models.DateTimeField(default=timezone.now)
