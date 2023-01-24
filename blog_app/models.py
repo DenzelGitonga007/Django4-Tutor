@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 # Post model
@@ -10,7 +11,13 @@ class Post(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    
+    # Defining the sort order
+    class Meta:
+        ordering = ['-publish'] # order by the publishing field
+        # Setup the index
+        indexes = [
+            models.Index(fields=['-publish']),
+        ]
 
 
     def __str__(self): # return human readable representation of the object
