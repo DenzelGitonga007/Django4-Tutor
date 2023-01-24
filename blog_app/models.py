@@ -6,7 +6,7 @@ from django.utils import timezone
 class Post(models.Model):
     # Add status field
     class Status(models.TextChoices):
-        DRAFT = 'DF', 'Draft'
+        DRAFT = 'DF', 'Draft' # choice, lable
         PUBLISHED = 'PB', 'Published'
 
     title = models.CharField(max_length=250) # title of the post, VARCHAR
