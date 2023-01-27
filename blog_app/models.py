@@ -4,6 +4,12 @@ from django.utils import timezone
 # Import User model
 from django.contrib.auth.models import User
 
+
+# Query sets
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset()\
+            .filter(status=Post.Status.PUBLISHED)
 # Create your models here.
 # Post model
 class Post(models.Model):
@@ -25,6 +31,10 @@ class Post(models.Model):
     # Status
     status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
     # Defining the sort order
+
+    # Still the query set
+    objects = models.Manager() # The default manager.
+    published = PublishedManager() # The custom manager. 
     class Meta:
         ordering = ['-publish'] # order by the publishing field
         # Setup the index
